@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
@@ -13,12 +14,17 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PhonebookServiceValidatorTest {
 
     @InjectMocks
     private PhonebookServiceValidator phonebookServiceValidator;
+
+    @Mock
+    private PrefixCacheValidator prefixCacheValidator;
 
     private List<String> nullNumbersList;
 
@@ -28,10 +34,14 @@ class PhonebookServiceValidatorTest {
     public void init() {
 
         emptyNumbersList = Collections.emptyList();
+
     }
 
     @Test
     public void retrieveValidNumbers_Success() {
+
+
+        when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
 
         List<String> validNumbersList = Arrays.asList("123", "456", "789");
 
@@ -42,6 +52,9 @@ class PhonebookServiceValidatorTest {
 
     @Test
     public void retrieveValidNumbers_One_Invalid_Number_Success() {
+
+
+        when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
 
         List<String> validNumbersList = Arrays.asList("+1983236248", "+1 7490276403", "001382355A", "+351917382672", "+35191734022");
 
@@ -56,6 +69,8 @@ class PhonebookServiceValidatorTest {
 
     @Test
     public void retrieveValidNumbers_5_Invalid_Numbers_Success() {
+
+        when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
 
         List<String> validNumbersList = Arrays.asList("+123", "00456", "+ 789", "00 789", "789", "+789", "asd123", "00789 213 1", "001234", "0012345678976542");
 

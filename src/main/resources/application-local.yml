@@ -7,3 +7,7 @@ server:
         hostname: https://challenge-business-sector-api.meza.talkdeskstg.com
         sector:
           endpoint: /sector/{phoneNumber}
+
+phonebook:
+  prefixes:
+    filepath: prefixes.txt
