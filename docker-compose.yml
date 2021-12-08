@@ -1,0 +1,9 @@
+version: "2"
+services:
+  phonebook-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: phonebook/latest
+    ports:
+      - 8080:8080
