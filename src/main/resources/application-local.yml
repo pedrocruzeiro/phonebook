@@ -1,0 +1,9 @@
+springdoc.swagger-ui.path: /swagger-ui.html
+
+server:
+  business:
+    sector:
+      api:
+        hostname: https://challenge-business-sector-api.meza.talkdeskstg.com
+        sector:
+          endpoint: /sector/{phoneNumber}

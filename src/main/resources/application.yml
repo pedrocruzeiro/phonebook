@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: phonebook-service
+  profiles:
+    active: local
