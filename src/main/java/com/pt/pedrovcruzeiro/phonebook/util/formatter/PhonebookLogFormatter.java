@@ -8,17 +8,13 @@ import java.time.Instant;
 
 public class PhonebookLogFormatter {
 
-    private PhonebookLogFormatter(){
+  private PhonebookLogFormatter() {}
 
-    }
-
-    public static String format(String message){
-        return String.format(
-                PhonebookConstants.PHONEBOOK_PREFIX_MSG,
-                MDC.get(PhonebookConstants.API_OPERATION),
-                Timestamp.from(Instant.now()),
-                message
-        );
-    }
-
+  public static String format(String message) {
+    return String.format(
+        PhonebookConstants.PHONEBOOK_PREFIX_MSG,
+        MDC.get(PhonebookConstants.API_OPERATION),
+        Timestamp.from(Instant.now()),
+        message);
+  }
 }

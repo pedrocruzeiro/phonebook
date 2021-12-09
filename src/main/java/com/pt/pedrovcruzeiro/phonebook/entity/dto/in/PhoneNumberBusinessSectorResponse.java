@@ -9,6 +9,6 @@ import lombok.*;
 @AllArgsConstructor
 public class PhoneNumberBusinessSectorResponse {
 
-    private String number;
-    private String sector;
+  private String number;
+  private String sector;
 }

@@ -20,85 +20,100 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class PhonebookServiceValidatorTest {
 
-    @InjectMocks
-    private PhonebookServiceValidator phonebookServiceValidator;
+  @InjectMocks private PhonebookServiceValidator phonebookServiceValidator;
 
-    @Mock
-    private PrefixCacheValidator prefixCacheValidator;
+  @Mock private PrefixCacheValidator prefixCacheValidator;
 
-    private List<String> nullNumbersList;
+  private List<String> nullNumbersList;
 
-    private List<String> emptyNumbersList;
+  private List<String> emptyNumbersList;
 
-    @BeforeEach
-    public void init() {
+  @BeforeEach
+  public void init() {
 
-        emptyNumbersList = Collections.emptyList();
+    emptyNumbersList = Collections.emptyList();
+  }
 
-    }
+  @Test
+  public void retrieveValidNumbers_Success() {
 
-    @Test
-    public void retrieveValidNumbers_Success() {
+    when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
 
+    List<String> validNumbersList = Arrays.asList("123", "456", "789");
 
-        when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
+    Map<String, String> retrievedValidNumbers =
+        phonebookServiceValidator.retrieveValidPhoneNumbers(validNumbersList);
 
-        List<String> validNumbersList = Arrays.asList("123", "456", "789");
+    assertEquals(3, retrievedValidNumbers.size());
+  }
 
-        Map<String, String> retrievedValidNumbers = phonebookServiceValidator.retrieveValidPhoneNumbers(validNumbersList);
+  @Test
+  public void retrieveValidNumbers_One_Invalid_Number_Success() {
 
-        assertEquals(3, retrievedValidNumbers.size());
-    }
+    when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
 
-    @Test
-    public void retrieveValidNumbers_One_Invalid_Number_Success() {
+    List<String> validNumbersList =
+        Arrays.asList(
+            "+1983236248", "+1 7490276403", "001382355A", "+351917382672", "+35191734022");
 
+    Map<String, String> retrievedValidNumbers =
+        phonebookServiceValidator.retrieveValidPhoneNumbers(validNumbersList);
 
-        when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
+    assertEquals(4, retrievedValidNumbers.size());
+    assertTrue(retrievedValidNumbers.containsKey("+1983236248"));
+    assertTrue(retrievedValidNumbers.containsKey("+1 7490276403"));
+    assertTrue(retrievedValidNumbers.containsKey("+351917382672"));
+    assertTrue(retrievedValidNumbers.containsKey("+35191734022"));
+  }
 
-        List<String> validNumbersList = Arrays.asList("+1983236248", "+1 7490276403", "001382355A", "+351917382672", "+35191734022");
+  @Test
+  public void retrieveValidNumbers_5_Invalid_Numbers_Success() {
 
-        Map<String, String> retrievedValidNumbers = phonebookServiceValidator.retrieveValidPhoneNumbers(validNumbersList);
+    when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
 
-        assertEquals(4, retrievedValidNumbers.size());
-        assertTrue(retrievedValidNumbers.containsKey("+1983236248"));
-        assertTrue(retrievedValidNumbers.containsKey("+1 7490276403"));
-        assertTrue(retrievedValidNumbers.containsKey("+351917382672"));
-        assertTrue(retrievedValidNumbers.containsKey("+35191734022"));
-    }
+    List<String> validNumbersList =
+        Arrays.asList(
+            "+123",
+            "00456",
+            "+ 789",
+            "00 789",
+            "789",
+            "+789",
+            "asd123",
+            "00789 213 1",
+            "001234",
+            "0012345678976542");
 
-    @Test
-    public void retrieveValidNumbers_5_Invalid_Numbers_Success() {
+    Map<String, String> retrievedValidNumbers =
+        phonebookServiceValidator.retrieveValidPhoneNumbers(validNumbersList);
 
-        when(prefixCacheValidator.isValidPrefix(any())).thenReturn(true);
+    assertEquals(5, retrievedValidNumbers.size());
+    assertTrue(retrievedValidNumbers.containsKey("+123"));
+    assertTrue(retrievedValidNumbers.containsKey("00456"));
+    assertTrue(retrievedValidNumbers.containsKey("789"));
+    assertTrue(retrievedValidNumbers.containsKey("00789 213 1"));
+    assertTrue(retrievedValidNumbers.containsKey("+789"));
+  }
 
-        List<String> validNumbersList = Arrays.asList("+123", "00456", "+ 789", "00 789", "789", "+789", "asd123", "00789 213 1", "001234", "0012345678976542");
+  @Test
+  public void retrieveValidNumbers_Null_List_Error() {
 
-        Map<String, String> retrievedValidNumbers = phonebookServiceValidator.retrieveValidPhoneNumbers(validNumbersList);
+    ValidationException exception =
+        assertThrows(
+            ValidationException.class,
+            () -> phonebookServiceValidator.retrieveValidPhoneNumbers(nullNumbersList));
 
-        assertEquals(5, retrievedValidNumbers.size());
-        assertTrue(retrievedValidNumbers.containsKey("+123"));
-        assertTrue(retrievedValidNumbers.containsKey("00456"));
-        assertTrue(retrievedValidNumbers.containsKey("789"));
-        assertTrue(retrievedValidNumbers.containsKey("00789 213 1"));
-        assertTrue(retrievedValidNumbers.containsKey("+789"));
-    }
+    assertEquals("Phonebook list is null or empty.", exception.getMessage());
+  }
 
-    @Test
-    public void retrieveValidNumbers_Null_List_Error() {
+  @Test
+  public void retrieveValidNumbers_Empty_List_Error() {
 
-        ValidationException exception = assertThrows(ValidationException.class, () -> phonebookServiceValidator.retrieveValidPhoneNumbers(nullNumbersList));
+    ValidationException exception =
+        assertThrows(
+            ValidationException.class,
+            () -> phonebookServiceValidator.retrieveValidPhoneNumbers(emptyNumbersList));
 
-        assertEquals("Phonebook list is null or empty.", exception.getMessage());
-    }
-
-    @Test
-    public void retrieveValidNumbers_Empty_List_Error() {
-
-        ValidationException exception = assertThrows(ValidationException.class, () -> phonebookServiceValidator.retrieveValidPhoneNumbers(emptyNumbersList));
-
-        assertEquals("Phonebook list is null or empty.", exception.getMessage());
-
-    }
-
+    assertEquals("Phonebook list is null or empty.", exception.getMessage());
+  }
 }

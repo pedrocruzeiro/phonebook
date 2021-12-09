@@ -1,6 +1,6 @@
 package com.pt.pedrovcruzeiro.phonebook.configuration;
 
-import com.pt.pedrovcruzeiro.phonebook.service.PrefixesService;
+import com.pt.pedrovcruzeiro.phonebook.service.PrefixesServiceImpl;
 import com.pt.pedrovcruzeiro.phonebook.util.constant.PhonebookConstants;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import lombok.RequiredArgsConstructor;
@@ -15,17 +15,14 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class PhonebookPostConstruct {
 
-    private final PrefixesService prefixesService;
+  private final PrefixesServiceImpl prefixesService;
 
-    @PostConstruct
-    public void init() {
-        MDC.put(PhonebookConstants.API_OPERATION,"prefixesLoader");
-        log.info(PhonebookLogFormatter.format("Loading prefixesFile"));
-        prefixesService.loadClientPrefixesFile();
-        log.info(PhonebookLogFormatter.format("Finished loading prefixesFile"));
-        MDC.remove(PhonebookConstants.API_OPERATION);
-    }
-
-
-
+  @PostConstruct
+  public void init() {
+    MDC.put(PhonebookConstants.API_OPERATION, "prefixesLoader");
+    log.info(PhonebookLogFormatter.format("Loading prefixesFile"));
+    prefixesService.loadClientPrefixesFile();
+    log.info(PhonebookLogFormatter.format("Finished loading prefixesFile"));
+    MDC.remove(PhonebookConstants.API_OPERATION);
+  }
 }

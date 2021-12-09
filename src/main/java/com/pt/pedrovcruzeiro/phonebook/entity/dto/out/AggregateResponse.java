@@ -11,5 +11,5 @@ import java.util.Map;
 @AllArgsConstructor
 public class AggregateResponse {
 
-    private Map<String, Map<String, Integer>> prefix;
+  private Map<String, Map<String, Integer>> prefix;
 }

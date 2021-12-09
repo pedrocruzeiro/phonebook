@@ -6,12 +6,10 @@ import java.util.List;
 
 public class GenericValidator {
 
-    protected void validateListFieldNotNullOrEmpty(List list, String message) {
+  protected void validateListFieldNotNullOrEmpty(List<String> list, String message) {
 
-        if (list == null || list.isEmpty()) {
-            throw new ValidationException(message);
-        }
-
+    if (list == null || list.isEmpty()) {
+      throw new ValidationException(message);
     }
-
+  }
 }

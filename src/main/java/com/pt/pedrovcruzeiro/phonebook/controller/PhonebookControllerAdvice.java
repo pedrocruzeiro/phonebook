@@ -1,4 +1,3 @@
 package com.pt.pedrovcruzeiro.phonebook.controller;
 
-public class PhonebookControllerAdvice {
-}
+public class PhonebookControllerAdvice {}
