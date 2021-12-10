@@ -16,7 +16,6 @@ All technical changes ill be documented in this file.
 
 * Improved overall code quality with exception handling
 
-
 ## [0.0.2] - 2021-12-09
 
 ### Added

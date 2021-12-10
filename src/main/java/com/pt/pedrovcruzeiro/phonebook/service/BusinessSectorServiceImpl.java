@@ -5,7 +5,6 @@ import com.pt.pedrovcruzeiro.phonebook.feign.BusinessSectorFeignClient;
 import com.pt.pedrovcruzeiro.phonebook.util.error.RetrieveBusinessSectorException;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import feign.FeignException;
-import feign.RetryableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;

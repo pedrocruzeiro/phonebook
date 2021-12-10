@@ -1,7 +1,6 @@
 package com.pt.pedrovcruzeiro.phonebook.configuration;
 
 import com.pt.pedrovcruzeiro.phonebook.service.PrefixesServiceImpl;
-import com.pt.pedrovcruzeiro.phonebook.util.constant.PhonebookConstants;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

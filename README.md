@@ -64,6 +64,6 @@ The application can be executed in the following ways:
 In the root folder of the project run one of the following commands:
 
 - Standalone application service: mvn spring-boot:run
-- Containerized service: 
-  - mvn clean install 
-  - docker-compose up web
+- Containerized service:
+    - mvn clean install
+    - docker-compose up web

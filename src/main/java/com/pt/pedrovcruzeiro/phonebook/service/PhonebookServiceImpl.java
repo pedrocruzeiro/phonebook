@@ -2,9 +2,7 @@ package com.pt.pedrovcruzeiro.phonebook.service;
 
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.in.PhoneNumberBusinessSectorResponse;
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.out.AggregateResponse;
-import com.pt.pedrovcruzeiro.phonebook.util.error.RetrieveBusinessSectorException;
 import com.pt.pedrovcruzeiro.phonebook.util.error.ValidationException;
-import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import com.pt.pedrovcruzeiro.phonebook.util.validator.PhonebookServiceValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -83,9 +81,7 @@ public class PhonebookServiceImpl implements PhonebookService {
       PhoneNumberBusinessSectorResponse phoneNumberBusinessSectorResponse =
           businessSectorService.retrievePhoneNumberBusinessSector(phoneNumber);
       response.put(phoneNumber, phoneNumberBusinessSectorResponse.getSector());
-
-
     }
     return response;
-    }
+  }
 }

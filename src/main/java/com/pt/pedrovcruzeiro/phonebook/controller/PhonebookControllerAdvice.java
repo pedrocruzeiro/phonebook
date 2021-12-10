@@ -1,7 +1,6 @@
 package com.pt.pedrovcruzeiro.phonebook.controller;
 
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.out.ErrorMessageResponse;
-import com.pt.pedrovcruzeiro.phonebook.util.constant.PhonebookConstants;
 import com.pt.pedrovcruzeiro.phonebook.util.error.RetrieveBusinessSectorException;
 import com.pt.pedrovcruzeiro.phonebook.util.error.ValidationException;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
@@ -36,8 +35,7 @@ public class PhonebookControllerAdvice implements ResponseBodyAdvice<Object> {
 
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   @ExceptionHandler(ValidationException.class)
-  public ResponseEntity<ErrorMessageResponse> handleValidationException(
-      ValidationException e) {
+  public ResponseEntity<ErrorMessageResponse> handleValidationException(ValidationException e) {
     return buildErrorMessageResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
   }
 
