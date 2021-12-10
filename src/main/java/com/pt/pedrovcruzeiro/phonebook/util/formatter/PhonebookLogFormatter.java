@@ -14,7 +14,8 @@ public class PhonebookLogFormatter {
     return String.format(
         PhonebookConstants.PHONEBOOK_PREFIX_MSG,
         MDC.get(PhonebookConstants.API_OPERATION),
-        Timestamp.from(Instant.now()),
+        MDC.get(PhonebookConstants.TRACE_ID),
+        MDC.get(PhonebookConstants.TIMESTAMP),
         message);
   }
 }

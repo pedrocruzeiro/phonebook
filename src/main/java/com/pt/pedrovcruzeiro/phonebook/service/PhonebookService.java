@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface PhonebookService {
 
-    public AggregateResponse aggregatePhoneNumbers(List<String> phoneNumbers);
+  public AggregateResponse aggregatePhoneNumbers(List<String> phoneNumbers);
 }

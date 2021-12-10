@@ -46,8 +46,8 @@ class PhoneBookControllerTest {
     assertTrue(response.getBody().containsKey("1"));
     assertTrue(response.getBody().containsKey("44"));
     assertTrue(response.getBody().containsKey("3519173"));
-    assertEquals(1,response.getBody().get("1").get("Technology"));
-    assertEquals(1,response.getBody().get("44").get("Banking"));
-    assertEquals(2,response.getBody().get("3519173").get("Clothing"));
+    assertEquals(1, response.getBody().get("1").get("Technology"));
+    assertEquals(1, response.getBody().get("44").get("Banking"));
+    assertEquals(2, response.getBody().get("3519173").get("Clothing"));
   }
 }

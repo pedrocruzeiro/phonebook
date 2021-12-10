@@ -10,7 +10,8 @@ This service provides a single rest API responsible to aggregate valid phone num
 
 ## Use case:
 
-- Input a list of phone numbers (valid and/or invalid) and the service will return the count of the valid phone numbers aggregated by prefixes and sectors.
+- Input a list of phone numbers (valid and/or invalid) and the service will return the count of the valid phone numbers
+  aggregated by prefixes and sectors.
 
 ## Resources:
 
@@ -51,6 +52,7 @@ A docker and a docker compose file are provided in the root of the project to ru
     }
 }
 ```
+
 ### Configuration
 
 A configuration file (CONFIG.md) is provided in the project root folder.
@@ -62,4 +64,6 @@ The application can be executed in the following ways:
 In the root folder of the project run one of the following commands:
 
 - Standalone application service: mvn spring-boot:run
-- Containerized service: docker-compose up web
+- Containerized service: 
+  - mvn clean install 
+  - docker-compose up web

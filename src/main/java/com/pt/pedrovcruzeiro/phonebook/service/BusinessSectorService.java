@@ -4,5 +4,5 @@ import com.pt.pedrovcruzeiro.phonebook.entity.dto.in.PhoneNumberBusinessSectorRe
 
 public interface BusinessSectorService {
 
-    public PhoneNumberBusinessSectorResponse retrievePhoneNumberBusinessSector(String phoneNumber);
+  public PhoneNumberBusinessSectorResponse retrievePhoneNumberBusinessSector(String phoneNumber);
 }

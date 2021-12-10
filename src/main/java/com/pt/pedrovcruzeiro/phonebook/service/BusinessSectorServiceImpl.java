@@ -2,9 +2,10 @@ package com.pt.pedrovcruzeiro.phonebook.service;
 
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.in.PhoneNumberBusinessSectorResponse;
 import com.pt.pedrovcruzeiro.phonebook.feign.BusinessSectorFeignClient;
-import com.pt.pedrovcruzeiro.phonebook.util.error.InvalidPhoneNumberException;
+import com.pt.pedrovcruzeiro.phonebook.util.error.RetrieveBusinessSectorException;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import feign.FeignException;
+import feign.RetryableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 @CacheConfig(cacheNames = {"businessSector"})
-public class BusinessSectorServiceImpl implements BusinessSectorService{
+public class BusinessSectorServiceImpl implements BusinessSectorService {
 
   private final BusinessSectorFeignClient businessSectorFeignClient;
 
@@ -29,9 +30,9 @@ public class BusinessSectorServiceImpl implements BusinessSectorService{
     PhoneNumberBusinessSectorResponse response;
     try {
       response = businessSectorFeignClient.retrieveBusinessSector(phoneNumber);
-    } catch (FeignException.FeignClientException e) {
+    } catch (FeignException e) {
       log.error(PhonebookLogFormatter.format(e.getMessage()));
-      throw new InvalidPhoneNumberException(e.getMessage());
+      throw new RetrieveBusinessSectorException("Business Sector API is unavailable.");
     }
 
     return response;

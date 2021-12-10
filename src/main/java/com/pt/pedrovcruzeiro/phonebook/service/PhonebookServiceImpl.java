@@ -2,7 +2,8 @@ package com.pt.pedrovcruzeiro.phonebook.service;
 
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.in.PhoneNumberBusinessSectorResponse;
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.out.AggregateResponse;
-import com.pt.pedrovcruzeiro.phonebook.util.error.InvalidPhoneNumberException;
+import com.pt.pedrovcruzeiro.phonebook.util.error.RetrieveBusinessSectorException;
+import com.pt.pedrovcruzeiro.phonebook.util.error.ValidationException;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import com.pt.pedrovcruzeiro.phonebook.util.validator.PhonebookServiceValidator;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,14 @@ public class PhonebookServiceImpl implements PhonebookService {
 
     // Build Response
 
-    return buildAggregatorResponse(validPhoneNumberList, phoneNumberListWithSectors);
+    AggregateResponse response =
+        buildAggregatorResponse(validPhoneNumberList, phoneNumberListWithSectors);
+
+    if (response.getPrefix().isEmpty()) {
+      throw new ValidationException("No valid phone numbers where sent in the input.");
+    }
+
+    return response;
   }
 
   private AggregateResponse buildAggregatorResponse(
@@ -71,15 +79,13 @@ public class PhonebookServiceImpl implements PhonebookService {
     Map<String, String> response = new HashMap<>(Collections.emptyMap());
 
     for (String phoneNumber : phoneNumbers) {
-      try {
-        PhoneNumberBusinessSectorResponse phoneNumberBusinessSectorResponse =
-            businessSectorService.retrievePhoneNumberBusinessSector(phoneNumber);
-        response.put(phoneNumber, phoneNumberBusinessSectorResponse.getSector());
-      } catch (InvalidPhoneNumberException e) {
-        log.error(
-            PhonebookLogFormatter.format("The following phone number is invalid: " + phoneNumber));
-      }
+
+      PhoneNumberBusinessSectorResponse phoneNumberBusinessSectorResponse =
+          businessSectorService.retrievePhoneNumberBusinessSector(phoneNumber);
+      response.put(phoneNumber, phoneNumberBusinessSectorResponse.getSector());
+
+
     }
     return response;
-  }
+    }
 }

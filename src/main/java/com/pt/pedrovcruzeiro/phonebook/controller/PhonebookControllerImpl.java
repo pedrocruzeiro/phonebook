@@ -2,7 +2,6 @@ package com.pt.pedrovcruzeiro.phonebook.controller;
 
 import com.pt.pedrovcruzeiro.phonebook.entity.dto.out.AggregateResponse;
 import com.pt.pedrovcruzeiro.phonebook.service.PhonebookService;
-import com.pt.pedrovcruzeiro.phonebook.service.PhonebookServiceImpl;
 import com.pt.pedrovcruzeiro.phonebook.util.formatter.PhonebookLogFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +21,14 @@ public class PhonebookControllerImpl implements PhonebookController {
   @Override
   public ResponseEntity<Map<String, Map<String, Integer>>> aggregate(List<String> phoneNumbers) {
 
-    log.info(PhonebookLogFormatter.format("Started processing number aggregation by prefix and sector"));
+    log.info(
+        PhonebookLogFormatter.format("Started processing number aggregation by prefix and sector"));
 
     AggregateResponse response = phonebookService.aggregatePhoneNumbers(phoneNumbers);
 
-    log.info(PhonebookLogFormatter.format("Finished processing number aggregation by prefix and sector"));
+    log.info(
+        PhonebookLogFormatter.format(
+            "Finished processing number aggregation by prefix and sector"));
 
     return ResponseEntity.ok(response.getPrefix());
   }

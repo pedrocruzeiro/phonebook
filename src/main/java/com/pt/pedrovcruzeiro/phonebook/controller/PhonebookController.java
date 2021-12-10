@@ -1,5 +1,7 @@
 package com.pt.pedrovcruzeiro.phonebook.controller;
 
+import com.pt.pedrovcruzeiro.phonebook.util.annotation.ApiOperation;
+import com.pt.pedrovcruzeiro.phonebook.util.constant.PhonebookConstants;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +17,9 @@ public interface PhonebookController {
   @PostMapping("/aggregate")
   @Operation(
       summary = "",
-      description = "",
+      description = "Operation to aggregate phone numbers by prefix and sector",
       tags = {"phonebook"})
-  ResponseEntity<Map<String, Map<String, Integer>>> aggregate(@RequestBody List<String> phoneNumbers);
+  @ApiOperation(PhonebookConstants.AGGREGATION_PHONEBOOK_API_OPERATION)
+  ResponseEntity<Map<String, Map<String, Integer>>> aggregate(
+      @RequestBody List<String> phoneNumbers);
 }

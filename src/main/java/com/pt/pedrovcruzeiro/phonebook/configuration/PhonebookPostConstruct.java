@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 
+import static com.pt.pedrovcruzeiro.phonebook.util.constant.PhonebookConstants.API_OPERATION;
+
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
@@ -19,10 +21,10 @@ public class PhonebookPostConstruct {
 
   @PostConstruct
   public void init() {
-    MDC.put(PhonebookConstants.API_OPERATION, "prefixesLoader");
+    MDC.put(API_OPERATION, "prefixesLoader");
     log.info(PhonebookLogFormatter.format("Loading prefixesFile"));
     prefixesService.loadClientPrefixesFile();
     log.info(PhonebookLogFormatter.format("Finished loading prefixesFile"));
-    MDC.remove(PhonebookConstants.API_OPERATION);
+    MDC.remove(API_OPERATION);
   }
 }
