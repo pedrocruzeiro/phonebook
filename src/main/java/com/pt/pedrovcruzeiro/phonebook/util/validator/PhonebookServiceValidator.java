@@ -48,7 +48,7 @@ public class PhonebookServiceValidator extends GenericValidator {
 
     for (int i = 0; i < phoneNumber.length(); i++) {
       String tempPrefix = phoneNumber;
-      tempPrefix = tempPrefix.replaceAll("([+]*|[00]*)", "");
+      tempPrefix = tempPrefix.replaceAll("(^[+]|^[0-0]{2})", "");
       tempPrefix = tempPrefix.substring(0, i + 1);
       if (prefixCacheValidator.isValidPrefix(tempPrefix)) {
         validPrefix = tempPrefix;
